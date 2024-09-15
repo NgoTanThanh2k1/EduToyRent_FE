@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Sidebar from "../../Component/Sidebar";
+import Sidebar from "../../Component/Sidebar/Sidebar";
 
 const Home = () => {
   return (
