@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./Pages/Home/Home";
+import StaffPage from "./Pages/StaffPage/StaffPage";
 import DashBoard from "./Pages/DashBoard/DashBoard";
 import Detail from "./Pages/Detail/Detail";
 import Detail2 from "./Pages/Detail/Detail2";
@@ -13,24 +14,27 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/staff",
+    element: <StaffPage />,
     children: [
       {
-        path: "/dashboard",
+        path: "/staff/dashboard",
         element: <DashBoard />,
       },
       {
-        path: "/detail",
+        path: "/staff/detail",
         element: <Detail />,
         children: [
           {
-            path: "/detail/detail2",
+            path: "/staff/detail/detail2",
             element: <Detail2 />,
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
-  
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
