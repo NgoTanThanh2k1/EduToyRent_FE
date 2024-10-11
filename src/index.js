@@ -1,37 +1,45 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import DashBoard from "./Pages/DashBoard/DashBoard";
 import Detail from "./Pages/Detail/Detail";
 import Detail2 from "./Pages/Detail/Detail2";
-
+import LoginPage from "./Pages/Login/LoginPage";
+import RegisterPage from "./Pages/Register/RegisterPage";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashBoard />,
     children: [
       {
-        path: "/dashboard",
-        element: <DashBoard />,
-      },
-      {
-        path: "/detail",
+        path: "detail",  // Sử dụng đường dẫn tương đối, không dùng dấu "/"
         element: <Detail />,
         children: [
           {
-            path: "/detail/detail2",
+            path: "detail2",  // Cũng là đường dẫn tương đối
             element: <Detail2 />,
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
-  
 ]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
