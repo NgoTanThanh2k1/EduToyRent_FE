@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Detail = () => {
   return (
     <div className="flex gap-2">
-      <Link to="/detail/detail2">Detail</Link>
+      <Link to="detail2">Detail</Link>
 
       <div>
         <Outlet />
