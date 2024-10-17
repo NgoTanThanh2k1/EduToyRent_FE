@@ -140,23 +140,27 @@ const HeaderForCustomer = () => {
     <div className="bg-white shadow-md">
       <div className="flex items-center justify-between gap-8 p-6">
         <div className="flex items-center gap-4 text-[#0e161b]">
-          <div className="size-4">
-            <svg
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </div>
-          <h2 className="text-[#0e161b] text-lg font-bold leading-tight tracking-[-0.015em]">
-            Edutoys
-          </h2>
+          <Link to="/">
+            <div className="size-4">
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+          </Link>
+          <Link to="/">
+            <h2 className="text-[#0e161b] text-lg font-bold leading-tight tracking-[-0.015em]">
+              Edutoys
+            </h2>
+          </Link>
         </div>
-        <label className="flex flex-col min-w-40 !h-10 max-w-64">
+        {/* <label className="flex flex-col min-w-40 !h-10 max-w-64">
           <div className="flex w-full flex-1 items-stretch rounded-xl h-full">
             <div className="text-[#507a95] flex border-none bg-[#e8eef3] items-center justify-center pl-4 rounded-l-xl border-r-0">
               <svg
@@ -175,7 +179,7 @@ const HeaderForCustomer = () => {
               value=""
             />
           </div>
-        </label>
+        </label> */}
         <div className="flex gap-2">
           <Link to="/login">
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#47a6e6] text-white text-sm font-bold leading-normal tracking-[0.015em]">
@@ -184,7 +188,7 @@ const HeaderForCustomer = () => {
           </Link>
           <Link to="/cart">
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#e8eef3] text-[#0e161b] text-sm font-bold leading-normal tracking-[0.015em]">
-              <span className="truncate">Giỏ Hàng</span>
+              <span className="truncate">Đăng ký</span>
             </button>
           </Link>
           <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#e8eef3] text-[#0e161b] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
