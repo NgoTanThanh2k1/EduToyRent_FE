@@ -58,24 +58,74 @@ const LoginPage = () => {
                   autoComplete="off"
                 />
               </div>
-
+              <div className="mb-2 w-full">
+                <label className="block text-gray-600">Vai trò</label>
+                <div className="flex items-center">
+                  <input
+                    type="radio"
+                    id="user"
+                    name="role"
+                    // value="user"
+                    // checked={role === "user"}
+                    // onChange={handleRoleChange}
+                    className="mr-2"
+                  />
+                  <label htmlFor="user" className="mr-4">
+                    Người dùng
+                  </label>
+                  <input
+                    type="radio"
+                    id="chef"
+                    name="role"
+                    // value="chef"
+                    // checked={role === "chef"}
+                    // onChange={handleRoleChange}
+                    className="mr-2"
+                  />
+                  <label htmlFor="chef">Nhà cung cấp</label>
+                </div>
+              </div>
+              <div className="mb-4 w-full">
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full mt-2"
+                >
+                  Đăng Nhập
+                </button>
+              </div>
               {/* Nút Google Login */}
-              <div className="flex justify-center mb-4">
+              <div className="mb-4 w-full ">
                 <GoogleLogin
                   onSuccess={handleGoogleSuccess}
                   onError={handleGoogleFailure}
                   text="signin_with"
-                  width="250px"
                 />
               </div>
+              <div className="flex justify-center items-center">
+                <p className="text-gray-600">
+                  Chưa có tài khoản?{" "}
+                  <span
+                    className="text-blue-500 cursor-pointer"
+                    onClick={() => navigate("/register")}
+                  >
+                    Đăng ký tại đây
+                  </span>
+                </p>
+              </div>
 
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full mt-2"
-              >
-                Đăng Nhập
-              </button>
+              <div className="flex justify-center items-center">
+                <p className="text-gray-600">
+                  Đăng ký làm nhà cung cấp?{" "}
+                  <span
+                  // className="text-blue-500 cursor-pointer"
+                  // onClick={() => navigate("/registerchef")}
+                  >
+                    Đăng ký tại đây
+                  </span>
+                </p>
+              </div>
             </form>
+
             <div className="flex justify-center items-end mt-6">
               <p className="text-center text-gray-600">
                 Copyright&copy; 2024 EduToyRent Competition
