@@ -1,10 +1,9 @@
-
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../Component/Sidebar/Sidebar";
 import HeaderForCustomer from "../../Component/HeaderForCustomer/HeaderForCustomer";
 import FooterForCustomer from "../../Component/FooterForCustomer/FooterForCustomer";
-
+import { Link } from "react-router-dom";
 const featuredToys = [
   {
     name: "Đồ chơi phát triển tư duy",
@@ -249,4 +248,3 @@ const Home = () => {
 };
 
 export default Home;
-
