@@ -1,7 +1,141 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const HeaderForCustomer = () => {
+  const [cartVisible, setCartVisible] = useState(false);
+  const [rentItems, setRentItems] = useState([
+    // Danh sách sản phẩm thuê (giữ mã cũ ở đây)
+    {
+      id: 1,
+      name: "Sản phẩm 1",
+      price: 100,
+      quantity: 1,
+      image:
+        "https://product.hstatic.net/1000300281/product/bap_benh_ca_thien_than_step2__2__f587e222b82242c4905775845b79644f_small.png",
+    },
+    {
+      id: 2,
+      name: "Sản phẩm 2",
+      price: 200,
+      quantity: 1,
+      image:
+        "https://product.hstatic.net/1000300281/product/bap_benh_ca_thien_than_step2__2__f587e222b82242c4905775845b79644f_small.png",
+    },
+    {
+      id: 3,
+      name: "Sản phẩm 3",
+      price: 300,
+      quantity: 1,
+      image:
+        "https://product.hstatic.net/1000300281/product/bap_benh_ca_thien_than_step2__2__f587e222b82242c4905775845b79644f_small.png",
+    },
+    {
+      id: 4,
+      name: "Sản phẩm 3",
+      price: 300,
+      quantity: 1,
+      image:
+        "https://product.hstatic.net/1000300281/product/bap_benh_ca_thien_than_step2__2__f587e222b82242c4905775845b79644f_small.png",
+    },
+  ]);
+  const [buyItems, setBuyItems] = useState([
+    // Danh sách sản phẩm mua (giữ mã cũ ở đây)
+    {
+      id: 1,
+      name: "Sản phẩm 1",
+      price: 100,
+      quantity: 1,
+      image:
+        "https://product.hstatic.net/1000300281/product/bap_benh_ca_thien_than_step2__2__f587e222b82242c4905775845b79644f_small.png",
+    },
+    {
+      id: 2,
+      name: "Sản phẩm 2",
+      price: 200,
+      quantity: 1,
+      image:
+        "https://product.hstatic.net/1000300281/product/bap_benh_ca_thien_than_step2__2__f587e222b82242c4905775845b79644f_small.png",
+    },
+    {
+      id: 3,
+      name: "Sản phẩm 3",
+      price: 300,
+      quantity: 1,
+      image:
+        "https://product.hstatic.net/1000300281/product/bap_benh_ca_thien_than_step2__2__f587e222b82242c4905775845b79644f_small.png",
+    },
+  ]);
+  const [totalRentPrice, setTotalRentPrice] = useState(0);
+  const [totalBuyPrice, setTotalBuyPrice] = useState(0);
+
+  const toggleCart = () => {
+    setCartVisible(!cartVisible);
+  };
+
+  const updateQuantity = (id, newQuantity, type) => {
+    if (type === "rent") {
+      setRentItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    } else {
+      setBuyItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    const newTotalRentPrice = rentItems.reduce((total, item) => {
+      // Tính giá thuê cho từng sản phẩm dựa trên thời gian thuê
+      const rentalPrice = calculateRentalPrice(item.price, item.rentalDuration);
+      return total + rentalPrice;
+    }, 0);
+    setTotalRentPrice(newTotalRentPrice);
+  }, [rentItems]);
+
+  useEffect(() => {
+    const newTotalBuyPrice = buyItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    setTotalBuyPrice(newTotalBuyPrice);
+  }, [buyItems]);
+
+  function removeItem(itemId, type) {
+    if (type === "rent") {
+      setRentItems(rentItems.filter((item) => item.id !== itemId));
+    } else {
+      setBuyItems(buyItems.filter((item) => item.id !== itemId));
+    }
+  }
+  const calculateRentalPrice = (price, duration) => {
+    let rentalPrice = 0;
+    switch (duration) {
+      case "1 tuần":
+        rentalPrice = price * 0.15;
+        break;
+      case "2 tuần":
+        rentalPrice = price * 0.25;
+        break;
+      case "1 tháng":
+        rentalPrice = price * 0.3;
+        break;
+      default:
+        rentalPrice = 0;
+    }
+    return rentalPrice;
+  };
+  const updateRentalDuration = (itemId, duration) => {
+    setRentItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, rentalDuration: duration } : item
+      )
+    );
+  };
   return (
     <div className="bg-white shadow-md">
       <div className="flex items-center justify-between gap-8 p-6">
@@ -43,7 +177,7 @@ const HeaderForCustomer = () => {
           </div>
         </label>
         <div className="flex gap-2">
-          <Link to="/signin">
+          <Link to="/login">
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#47a6e6] text-white text-sm font-bold leading-normal tracking-[0.015em]">
               <span className="truncate">Đăng nhập</span>
             </button>
@@ -66,7 +200,10 @@ const HeaderForCustomer = () => {
               </svg>
             </div>
           </button>
-          <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#e8eef3] text-[#0e161b] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+          <button
+            className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#e8eef3] text-[#0e161b] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
+            onClick={toggleCart}
+          >
             <div className="text-[#0e161b]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +216,183 @@ const HeaderForCustomer = () => {
               </svg>
             </div>
           </button>
-        </div>
-      </div>
+          {cartVisible && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-end z-50"
+              onClick={toggleCart}
+            >
+              <div
+                className="cart-modal bg-white p-4 shadow-md rounded-md w-[700px] h-full flex flex-col justify-between"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex-grow overflow-y-auto">
+                  <h2 className="text-lg font-bold mb-4">Giỏ hàng của bạn</h2>
+                  <h3 className="font-bold mb-2 mt-4">Đơn Thuê Sản Phẩm</h3>
+                  <div className="flex-grow overflow-y-auto max-h-72">
+                    {rentItems.length === 0 ? (
+                      <p>Giỏ hàng thuê trống.</p>
+                    ) : (
+                      rentItems.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-center mb-4 relative"
+                        >
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-30 h-30 object-cover mr-4"
+                          />
+                          <div className="flex-grow">
+                            <h3 className="font-bold">{item.name}</h3>
+                            <div className="flex flex-col">
+                              {/* Chọn thời gian thuê */}
+                              <div className="flex justify-between items-center mb-2">
+                                <p className="mr-4">
+                                  Giá gốc: {item.price} VNĐ
+                                </p>
+                              </div>
+                              <div className="flex space-x-4">
+                                <button
+                                  className={`border px-4 py-2 ${
+                                    item.rentalDuration === "1 tuần"
+                                      ? "bg-blue-500 text-white"
+                                      : ""
+                                  }`}
+                                  onClick={() =>
+                                    updateRentalDuration(item.id, "1 tuần")
+                                  }
+                                >
+                                  1 tuần
+                                </button>
+                                <button
+                                  className={`border px-4 py-2 ${
+                                    item.rentalDuration === "2 tuần"
+                                      ? "bg-blue-500 text-white"
+                                      : ""
+                                  }`}
+                                  onClick={() =>
+                                    updateRentalDuration(item.id, "2 tuần")
+                                  }
+                                >
+                                  2 tuần
+                                </button>
+                                <button
+                                  className={`border px-4 py-2 ${
+                                    item.rentalDuration === "1 tháng"
+                                      ? "bg-blue-500 text-white"
+                                      : ""
+                                  }`}
+                                  onClick={() =>
+                                    updateRentalDuration(item.id, "1 tháng")
+                                  }
+                                >
+                                  1 tháng
+                                </button>
+                              </div>
+                              {/* Hiển thị giá thay đổi theo thời gian thuê */}
+                              <div className="mt-2">
+                                <p className="font-bold">
+                                  Giá thuê:{" "}
+                                  {calculateRentalPrice(
+                                    item.price,
+                                    item.rentalDuration
+                                  )}{" "}
+                                  VNĐ
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            className="absolute top-0 right-0 text-red-500 hover:text-red-700 text-xl font-bold"
+                            onClick={() => removeItem(item.id, "rent")}
+                          >
+                            &times;
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  <h3 className="font-bold mb-2 mt-4">Đơn Mua Sản Phẩm</h3>
+                  <div className="flex-grow overflow-y-auto max-h-72">
+                    {buyItems.length === 0 ? (
+                      <p>Giỏ hàng mua trống.</p>
+                    ) : (
+                      buyItems.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-center mb-4 relative"
+                        >
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-30 h-30 object-cover mr-4"
+                          />
+                          <div className="flex-grow">
+                            <h3 className="font-bold">{item.name}</h3>
+                            <div className="flex justify-between items-center">
+                              <p className="mr-4">Giá: {item.price} VNĐ</p>
+                              <div className="flex items-center">
+                                <button
+                                  className="border px-2 py-1 mr-2"
+                                  onClick={() =>
+                                    updateQuantity(
+                                      item.id,
+                                      item.quantity - 1,
+                                      "buy"
+                                    )
+                                  }
+                                  disabled={item.quantity <= 1}
+                                >
+                                  -
+                                </button>
+                                <span>{item.quantity}</span>
+                                <button
+                                  className="border px-2 py-1 ml-2"
+                                  onClick={() =>
+                                    updateQuantity(
+                                      item.id,
+                                      item.quantity + 1,
+                                      "buy"
+                                    )
+                                  }
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            className="absolute top-0 right-0 text-red-500 hover:text-red-700 text-xl font-bold"
+                            onClick={() => removeItem(item.id, "buy")}
+                          >
+                            &times;
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {/* Phần tổng tiền nằm ở đáy */}
+                <div className="border-t border-gray-200 bg-white py-4">
+                  <h4 className="text-md font-semibold">
+                    Tổng tiền thuê: {totalRentPrice} VNĐ
+                  </h4>
+                  <h4 className="text-md font-semibold">
+                    Tổng tiền mua: {totalBuyPrice} VNĐ
+                  </h4>
+                  <h4 className="text-md font-semibold">
+                    Tổng tiền: {totalRentPrice + totalBuyPrice} VNĐ
+                  </h4>
+                  <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                    Thanh toán
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}{" "}
+        </div>{" "}
+      </div>{" "}
     </div>
   );
 };
