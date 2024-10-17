@@ -186,7 +186,7 @@ const HeaderForCustomer = () => {
               <span className="truncate">Đăng nhập</span>
             </button>
           </Link>
-          <Link to="/cart">
+          <Link to="/register">
             <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#e8eef3] text-[#0e161b] text-sm font-bold leading-normal tracking-[0.015em]">
               <span className="truncate">Đăng ký</span>
             </button>
@@ -230,7 +230,15 @@ const HeaderForCustomer = () => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex-grow overflow-y-auto">
-                  <h2 className="text-lg font-bold mb-4">Giỏ hàng của bạn</h2>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-bold">Giỏ hàng của bạn</h2>
+                    <button
+                      className="text-gray-600 hover:text-gray-800 text-2xl"
+                      onClick={toggleCart}
+                    >
+                      &times;
+                    </button>
+                  </div>
                   <h3 className="font-bold mb-2 mt-4">Đơn Thuê Sản Phẩm</h3>
                   <div className="flex-grow overflow-y-auto max-h-72">
                     {rentItems.length === 0 ? (
