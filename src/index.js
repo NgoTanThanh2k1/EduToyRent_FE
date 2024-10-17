@@ -10,13 +10,38 @@ import Detail from "./Pages/Detail/Detail";
 import Detail2 from "./Pages/Detail/Detail2";
 import LoginPage from "./Pages/Login/LoginPage";
 import RegisterPage from "./Pages/Register/RegisterPage";
+import FilterToys from "./Pages/Home/FilterToysHome";
+import ToysDetails from "./Pages/Home/ToysDetails";
+import ToysSaleDetails from "./Pages/Home/ToysSaleDetails";
+import LessorToysDetails from "./Pages/Home/LessorToysDetails";
+import ToyStoreDetails from "./Pages/Home/ToyStoreDetails";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
   },
   {
-
+    path: "/filter-toys",
+    element: <FilterToys />,
+  },
+  {
+    path: "/toys-rent-details",
+    element: <ToysDetails />,
+  },
+  {
+    path: "/toys-sale-details",
+    element: <ToysSaleDetails />,
+  },
+  {
+    path: "/lessor-toys-details",
+    element: <LessorToysDetails />,
+  },
+  {
+    path: "/toy-store-details",
+    element: <ToyStoreDetails />,
+  },
+  {
     path: "/login",
     element: <LoginPage />,
   },
@@ -29,11 +54,11 @@ const router = createBrowserRouter([
     element: <DashBoard />,
     children: [
       {
-        path: "detail",  // Sử dụng đường dẫn tương đối, không dùng dấu "/"
+        path: "detail", // Sử dụng đường dẫn tương đối, không dùng dấu "/"
         element: <Detail />,
         children: [
           {
-            path: "detail2",  // Cũng là đường dẫn tương đối
+            path: "detail2", // Cũng là đường dẫn tương đối
             element: <Detail2 />,
           },
         ],
